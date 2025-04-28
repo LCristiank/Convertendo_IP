@@ -24,4 +24,5 @@ public class Ip {
 			return "Sem Classe";
 		}
 	}
+	
 }

@@ -4,7 +4,7 @@ public class Mascara {
 	private int cidr;
 	
 	public void setMascara( int cidr) {
-		this.cidr = cidr;
+			this.cidr = cidr;
 	}
 	public int getMascara() {
 		return cidr;
@@ -14,7 +14,8 @@ public class Mascara {
 	public String cidrToMask() {
 		int[] octetos = new int[4];
 		int tempCidr = cidr;
-		for( int i = 0; i < 4; i++ ) {
+
+		for (int i = 0; i < 4; i++) {
 			if(tempCidr >= 8) {
 				octetos[i] = 255;
 				tempCidr -= 8;
