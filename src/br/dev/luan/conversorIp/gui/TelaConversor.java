@@ -110,15 +110,19 @@ public class TelaConversor {
 				try {
 
 					int cidr = Integer.parseInt(txtCidr);
-					ip.setMask(cidr);
-					String mascara = ip.cidrToMask();
-					String mascaraBinario = ip.maskToBinary();
-					int ipsDisponiveis = ip.calcularIPsDisponiveis();
-					
-					labelResultMask.setText("Máscara: " + mascara);
-					labelResultBinary.setText("Binário: " + mascaraBinario);
-					labelIps.setText("IPs Disponíveis: " + ipsDisponiveis); 
-					
+					if (cidr > 32) {
+						JOptionPane.showMessageDialog(null, "CIDR Não pode ser maior que 32!!", txtCidr, JOptionPane.ERROR_MESSAGE);
+					} else {
+						ip.setMask(cidr);
+						String mascara = ip.cidrToMask();
+						String mascaraBinario = ip.maskToBinary();
+						int ipsDisponiveis = ip.calcularIPsDisponiveis();
+						
+						labelResultMask.setText("Máscara: " + mascara);
+						labelResultBinary.setText("Binário: " + mascaraBinario);
+						labelIps.setText("IPs Disponíveis: " + ipsDisponiveis); 
+						
+					}
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(null, "CIDR inválido!!!", txtCidr, JOptionPane.ERROR_MESSAGE);
 				}
