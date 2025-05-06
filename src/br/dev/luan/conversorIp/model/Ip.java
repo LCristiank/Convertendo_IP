@@ -1,8 +1,11 @@
-package br.dev.luan.conversorIp.model;
+	package br.dev.luan.conversorIp.model;
 
 public class Ip {
 	private String endereco;
 	private int cidr;
+	
+	private int[] octetos = new int [4];
+	String[] octetoBinario = new String[4];
 
 	public void setIp(String ip) {
 		this.endereco = ip;
@@ -29,6 +32,10 @@ public class Ip {
 				return "Classe B";
 			} else if(primeiroOcteto >= 192 && primeiroOcteto <= 223) {
 				return "Classe C";
+			} else if (primeiroOcteto >= 224 && primeiroOcteto <= 239){
+				return "Classe D";
+			} else if (primeiroOcteto >= 240 && primeiroOcteto <= 255){
+				return "Classe E";
 			} else {
 				return "Sem Classe";
 			}
@@ -37,7 +44,6 @@ public class Ip {
 	}
 	
 	public String cidrToMask() {
-		int[] octetos = new int[4];
 		int tempCidr = cidr;
 		for (int i = 0; i  < 4; i++) {
 			if(tempCidr >=8) {
@@ -55,7 +61,6 @@ public class Ip {
 	}
 	
 	public String maskToBinary() {
-		int[] octetos = new int [4];
 		int tempCidr = cidr;
 		for (int i = 0; i  < 4; i++) {
 			if(tempCidr >=8) {
@@ -69,7 +74,6 @@ public class Ip {
 			}
 		}
 		
-		String[] octetoBinario = new String[4];
 		for (int i = 0; i < 4; i++) {
 			String binary = Integer.toBinaryString(octetos[i]);
 			octetoBinario[i] = String.format("%8s", binary).replace(' ', '0');
@@ -89,6 +93,22 @@ public class Ip {
 			return (int) Math.pow(2, 32 - cidr) - 2;
 			}
 	}
-
 	
+	public int calcularSubRedes() {
+		String binaryOctectFourth = octetoBinario[3];
+		int contador = 0;
+		for (char c : binaryOctectFourth.toCharArray()) {
+            if (c == '1') {
+                contador++;
+            }
+        }
+		return (int) Math.pow(2, contador);
+	}
+	
+	public int calcularQuantidadesSaltos() {
+		int mascara = octetos[3];
+		int calculoSalto = 256 - mascara;
+		return calculoSalto;
+	}
+
 }
