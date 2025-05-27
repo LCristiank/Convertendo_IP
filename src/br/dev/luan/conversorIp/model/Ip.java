@@ -107,7 +107,7 @@ public class Ip {
 
 	}
 	
-	public int calcularQuantidadesSaltos() {
+	public int calcularSalto() {
 		int mascara = octetos[3];
 		int calculoSalto = 256 - mascara;
 		return calculoSalto;
@@ -123,17 +123,14 @@ public class Ip {
 	
 	public String ultimoIpValido() {
 		String[] octetosIp = endereco.split("\\.");
-		String[] mascara = cidrToMask().split("\\.");
-		String ultimoOcteto = mascara[0];
-		int ultimoIpValido = Integer.parseInt(ultimoOcteto) - 1;
+		int ultimoIpValido = calcularSalto() - 2;
 
 		return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + ultimoIpValido;
 	}
 	public String ipBroadcast() {
 		String[] octetosIp = endereco.split("\\.");
-		String[] mascara = cidrToMask().split("\\.");
-		String ultimoOcteto = mascara[0];
-		int broadcastIp = Integer.parseInt(ultimoOcteto);
+		int broadcastIp = calcularSalto() - 1;
 		return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + broadcastIp;
 	}
+	
 }

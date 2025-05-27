@@ -83,18 +83,24 @@ public class TelaConversor {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Ip ip = new Ip();
-				
+		
 				String txtCidr = textCidr.getText();
 				String txtIp = textIp.getText();
-				String[] ipOctetos = txtIp.split("\\.");
-				boolean ipNumero;
+				String[] ipOctetos = new String[4];
+				ipOctetos =  txtIp.split("\\.");
+				boolean ipNumero = false;
 				
 				try {
-					int ipFirstOctect = Integer.parseInt(ipOctetos[0]);
-					int ipSecondOctect = Integer.parseInt(ipOctetos[1]);
-					int ipThirdOctect = Integer.parseInt(ipOctetos[2]);
-					int ipFourthOctect = Integer.parseInt(ipOctetos[3]);
-					ipNumero = true; 
+					if (ipOctetos.length >= 5) {
+						JOptionPane.showMessageDialog(
+								null,
+								"IP inválido! O IP está no formato incorreto", 
+								txtIp, 
+								JOptionPane.ERROR_MESSAGE
+								);
+					} else {
+						ipNumero = true; 
+					}
 				} catch (Exception e2) {
 					ipNumero = false;
 				}
@@ -105,7 +111,6 @@ public class TelaConversor {
 				} else {
 					JOptionPane.showMessageDialog(null, "IP inválido! Não aceitamos letras ou está incompleto", txtIp, JOptionPane.ERROR_MESSAGE);
 				}
-			
 				
 				try {
 
