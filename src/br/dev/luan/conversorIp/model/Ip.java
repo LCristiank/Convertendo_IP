@@ -3,10 +3,10 @@
 public class Ip {
 	private String endereco;
 	private int cidr;
-	
 	private int[] octetos = new int [4];
 	String[] octetoBinario = new String[4];
 
+	
 	public void setIp(String ip) {
 		this.endereco = ip;
 	}
@@ -20,10 +20,11 @@ public class Ip {
 		return cidr;
 	}
 	
+	
 	public String classificarIp() {
-		String[] octeto = endereco.split("\\.");
-		int primeiroOcteto = Integer.parseInt(octeto[0]);
-		if (octeto[0] == null || octeto[1] == null || octeto[2] == null || octeto[3] == null) {
+		String[] octetosIp = endereco.split("\\.");
+		int primeiroOcteto = Integer.parseInt(octetosIp[0]);
+		if (octetosIp[0] == null || octetosIp[1] == null || octetosIp[2] == null || octetosIp[3] == null) {
 			return "Faltando número no IP.";
 		} else {
 			if(primeiroOcteto >= 0 && primeiroOcteto <= 127) {
@@ -91,7 +92,7 @@ public class Ip {
 			return 0;
 		} else {
 			return (int) Math.pow(2, 32 - cidr) - 2;
-			}
+		}
 	}
 	
 	public int calcularSubRedes() {
@@ -103,6 +104,7 @@ public class Ip {
             }
         }
 		return (int) Math.pow(2, contador);
+
 	}
 	
 	public int calcularQuantidadesSaltos() {
@@ -110,5 +112,28 @@ public class Ip {
 		int calculoSalto = 256 - mascara;
 		return calculoSalto;
 	}
+	
+	public String primeiroIpValido() {
+		String[] octetosIp = endereco.split("\\.");
+		String ultimoOcteto = octetosIp[3];
+		int primeiroIpValido = Integer.parseInt(ultimoOcteto) + 1;
+		
+		return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + primeiroIpValido;
+	}
+	
+	public String ultimoIpValido() {
+		String[] octetosIp = endereco.split("\\.");
+		String[] mascara = cidrToMask().split("\\.");
+		String ultimoOcteto = mascara[0];
+		int ultimoIpValido = Integer.parseInt(ultimoOcteto) - 1;
 
+		return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + ultimoIpValido;
+	}
+	public String ipBroadcast() {
+		String[] octetosIp = endereco.split("\\.");
+		String[] mascara = cidrToMask().split("\\.");
+		String ultimoOcteto = mascara[0];
+		int broadcastIp = Integer.parseInt(ultimoOcteto);
+		return octetosIp[0] + "." + octetosIp[1] + "." + octetosIp[2] + "." + broadcastIp;
+	}
 }
