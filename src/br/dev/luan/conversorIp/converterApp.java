@@ -9,10 +9,10 @@ public class converterApp {
 		Ip ip = new Ip();
 		
 		
-//		tela.criarTela();
+		tela.criarTela();
 		
 		ip.setIp("192.168.0.0");
-		ip.setMask(27);
+		ip.setMask(30);
 		System.out.println("Máscara: " + ip.cidrToMask());
 		System.out.println("Binário: " + ip.maskToBinary());
 		System.out.println("IPs Disponíveis: " + ip.calcularIPsDisponiveis());
@@ -22,5 +22,6 @@ public class converterApp {
 		System.out.println("Primeiro IP válido: " + ip.primeiroIpValido());
 		System.out.println("Ultimo IP válido: " + ip.ultimoIpValido());
 		System.out.println("IP do Broadcast: " + ip.ipBroadcast());
+		System.out.println("Redes: \n" + ip.showNetwork());
 	}
 }
